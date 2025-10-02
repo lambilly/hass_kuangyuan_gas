@@ -1,0 +1,13 @@
+{
+  "name": "旷远燃气",
+  "render_readme": true,
+  "domains": ["sensor"],
+  "homeassistant": "2023.8.0",
+  "iot_class": "Cloud Polling",
+  "zip_release": false,
+  "filename": "kuangyuan_gas.zip",
+  "hide_default_branch": true,
+  "persistent_directory": "none",
+  "country": ["CN"],
+  "content_in_root": false
+}
