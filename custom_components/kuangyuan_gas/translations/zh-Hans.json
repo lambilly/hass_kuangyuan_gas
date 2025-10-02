@@ -1,0 +1,25 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "配置旷远燃气",
+        "description": "请输入您的燃气账户信息",
+        "data": {
+          "uno": "燃气户号（uno）",
+          "cookie": "Cookie",
+          "phone": "手机号（nickname）"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "无法连接到服务器",
+      "invalid_auth": "认证失败",
+      "unknown": "发生未知错误"
+    },
+    "abort": {
+      "already_configured": "此燃气户号已被配置",
+      "reauth_successful": "重新认证成功"
+    }
+  },
+  "title": "旷远燃气"
+}
