@@ -1,0 +1,13 @@
+{
+  "domain": "kuangyuan_gas",
+  "name": "旷远燃气",
+  "codeowners": ["@lambilly"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/lambilly/kuangyuan_gas",
+  "integration_type": "device",
+  "iot_class": "cloud_polling",
+  "requirements": ["aiohttp"],
+  "version": "1.0.0",
+  "translations": ["zh-Hans"]
+}
