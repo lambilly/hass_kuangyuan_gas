@@ -75,7 +75,7 @@
 ## 支持
 
 如有问题，请通过以下方式联系：
-- 创建 [GitHub Issue](https://github.com/lambilly/kuangyuan_gas/issues)
+- 创建 [GitHub Issue](https://github.com/lambilly/hass_kuangyuan_gas/issues)
 - 发送邮件至作者
 
 ## 许可证
