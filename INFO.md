@@ -1,4 +1,6 @@
-# 旷远燃气集成
+# 旷远燃气 Home Assistant 集成
+
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
 
 这个集成允许您在 Home Assistant 中监控旷远燃气的使用情况。
 
