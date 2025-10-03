@@ -12,22 +12,19 @@
 - 查询数据更新时间
 - 自动24小时更新数据
 
-## 安装
-
+## 安装方法
 ### 方法一：通过 HACS 安装（推荐）
-
 1. 确保已安装 [HACS](https://hacs.xyz/)
-2. 在 HACS 中点击「集成」
-3. 点击右下角「+ 浏览并下载仓库」
-4. 搜索「旷远燃气」并安装
-5. 重启 Home Assistant
+2. 在 HACS 的 "Integrations" 页面，点击右上角的三个点菜单，选择 "Custom repositories"
+3. 在弹出窗口中添加仓库地址：https://github.com/lambilly/hass_kuangyuan_gas，类别选择 "Integration"
+4. 在 HACS 中搜索「旷远燃气」
+5. 点击下载
+6. 重启 Home Assistant
 
 ### 方法二：手动安装
-
-1. 将 `kuangyuan_gas` 文件夹复制到 `custom_components` 目录
-2. 重启 Home Assistant
-
-## 配置
+1. 下载本集成文件
+2. 将 `custom_components/kuangyuan_gas` 文件夹复制到您的 Home Assistant 配置目录中的 `custom_components` 文件夹内
+3. 重启 Home Assistant
 
 ### 通过 UI 配置
 
