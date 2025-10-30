@@ -4,7 +4,7 @@ from __future__ import annotations
 import asyncio
 import logging
 import re
-from datetime import timedelta
+from datetime import datetime, timedelta
 from typing import Any
 
 import aiohttp
@@ -23,12 +23,14 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import StateType
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.util import dt as dt_util
 
 from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
-SCAN_INTERVAL = timedelta(hours=24)  # 24小时更新一次
+# 每天0:00和12:00更新一次
+SCAN_INTERVAL = timedelta(hours=12)
 
 
 async def async_setup_entry(
@@ -44,6 +46,7 @@ async def async_setup_entry(
         GasUsageSensor(entry, session),
         GasStatusSensor(entry, session),
         GasUpdateTimeSensor(entry, session),
+        GasLastUpdateSensor(entry, session),  # 新增更新时间传感器
     ]
     
     async_add_entities(sensors, update_before_add=True)
@@ -63,12 +66,15 @@ class KuangyuanGasSensor(SensorEntity):
             manufacturer="旷远能源",
             model="燃气用户",
         )
+        self._last_update_time = None  # 记录最后更新时间
 
     async def async_update(self) -> None:
         """Fetch data from the API."""
         try:
             data = await self._fetch_gas_data()
             await self._process_data(data)
+            # 更新最后成功更新时间
+            self._last_update_time = dt_util.now().strftime("%Y-%m-%d %H:%M:%S")
         except Exception as err:
             _LOGGER.error("Error updating sensor data: %s", err)
             self._attr_available = False
@@ -272,4 +278,34 @@ class GasUpdateTimeSensor(KuangyuanGasSensor):
             _LOGGER.debug("Set time value: %s", time_value)
         else:
             _LOGGER.warning("Could not find update time in data: %s", data)
+            self._attr_available = False
+
+
+class GasLastUpdateSensor(KuangyuanGasSensor):
+    """Representation of gas last update time sensor."""
+
+    _attr_name = "更新时间"
+    _attr_unique_id = "gas_last_update"
+    _attr_icon = "mdi:clock-check"
+
+    def __init__(self, entry: ConfigEntry, session: aiohttp.ClientSession) -> None:
+        """Initialize the last update time sensor."""
+        super().__init__(entry, session)
+        self._attr_unique_id = f"{entry.data['uno']}_last_update"
+
+    async def _process_data(self, data: dict[str, Any]) -> None:
+        """Process last update time data."""
+        # 这个传感器不需要处理API数据，只需要显示最后更新时间
+        pass
+
+    async def async_update(self) -> None:
+        """Update the sensor with current timestamp."""
+        try:
+            # 获取API数据但不处理具体内容
+            await self._fetch_gas_data()
+            # 设置最后更新时间为当前时间
+            self._attr_native_value = dt_util.now().strftime("%Y-%m-%d %H:%M:%S")
+            self._attr_available = True
+        except Exception as err:
+            _LOGGER.error("Error updating last update time sensor: %s", err)
             self._attr_available = False
